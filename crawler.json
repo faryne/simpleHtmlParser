@@ -1,0 +1,13 @@
+{
+  "encoding": "utf-8",
+  "selectors": [
+    {
+      "identifier": "aaa",
+      "selector": "img",
+      "repeated": false,
+      "property": "attr",
+      "target": "alt",
+      "type": "string"
+    }
+  ]
+}

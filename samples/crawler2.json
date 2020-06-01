@@ -1,0 +1,40 @@
+{
+  "encoding": "utf-8",
+  "selectors": [
+    {
+      "identifier": "Books",
+      "selector": "div.bwbookitem",
+      "repeated": true,
+      "children": [
+        {
+          "identifier": "Name",
+          "selector": "h4.bookname",
+          "repeated": false,
+          "type": "string",
+          "output": {
+            "target": "html"
+          }
+        },
+        {
+          "identifier": "Cover",
+          "selector": ".bwbookcover > img",
+          "repeated": false,
+          "type": "string",
+          "output": {
+            "property": "data-src",
+            "target": "attr"
+          }
+        },
+        {
+          "identifier": "Author",
+          "selector": "h5.booknamesub",
+          "repeated": false,
+          "type": "string",
+          "output": {
+            "target": "html"
+          }
+        }
+      ]
+    }
+  ]
+}

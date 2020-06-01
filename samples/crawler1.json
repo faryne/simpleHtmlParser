@@ -5,17 +5,21 @@
       "identifier": "BookName",
       "selector": "h4.bookname",
       "repeated": true,
-      "property": "html",
-      "type": "string",
-      "target": "alt"
+      "output": {
+        "property": "",
+        "target": "html"
+      },
+      "type": "string"
     },
     {
       "identifier": "BookPhoto",
       "selector": ".bookbor.lazyload",
       "repeated": true,
-      "property": "attr",
-      "type": "string",
-      "target": "data-src"
+      "output": {
+        "property": "data-src",
+        "target": "attr"
+      },
+      "type": "string"
     }
   ]
 }

@@ -50,12 +50,17 @@ func main () {
 	}
 
 	// 開始進入解析步驟
-	query := services.ParsePage(reader, req)
+	convReader, errReader := services.InitGoquery(reader)
+	if errReader != nil {
+		services.GenerateError(006, errReader.Error())
+		return
+	}
+	query := services.ParsePage(convReader, req)
 
 	// 將爬蟲結果輸出為 json
 	content, errJson := json.Marshal(query)
 	if errJson != nil {
-		services.GenerateError(006, errJson.Error())
+		services.GenerateError(007, errJson.Error())
 		return
 	}
 	fmt.Println(string(content))

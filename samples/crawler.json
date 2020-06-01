@@ -5,15 +5,20 @@
       "identifier": "Name",
       "selector": "td.t1 > h1",
       "repeated": false,
-      "property": "html",
+      "output": {
+        "property": "",
+        "target": "html"
+      },
       "type": "string"
     },
     {
       "identifier": "Photo",
       "selector": "tr.area-av30.top > td:nth-child(1) > img",
       "repeated": false,
-      "property": "attr",
-      "target": "src",
+      "output": {
+        "property": "src",
+        "target": "attr"
+      },
       "type": "string"
     }
   ]

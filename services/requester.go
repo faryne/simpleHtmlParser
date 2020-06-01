@@ -6,16 +6,20 @@ import (
 )
 
 type JsonRequest struct {
-	Encoding 	string 			`json:"encoding"`
-	Selectors 	[]Selector 		`json:"selectors"`
+	Encoding 		string 				`json:"encoding"`
+	Selectors 		[]Selector 			`json:"selectors"`
 }
 type Selector struct {
-	Identifer 	string			`json:"identifier"`
-	Selector 	string 			`json:"selector"`
-	Repeated 	bool 			`json:"repeated"`
-	Property 	string 			`json:"property"`
-	Target 		string 			`json:"target"`
-	Type 		string 			`json:"type"`
+	Identifer 		string				`json:"identifier"`
+	Selector 		string 				`json:"selector"`
+	Repeated 		bool 				`json:"repeated"`
+	Type 			string 				`json:"type"`
+	Children 		[]Selector 			`json:"children"`
+	Output 			Element 			`json:"output"`
+}
+type Element struct {
+	Property 		string 				`json:"property"`
+	Target 			string 				`json:"target"`
 }
 
 func getJsonContent (filename string) ([]byte, error){

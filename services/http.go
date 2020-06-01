@@ -11,7 +11,6 @@ func GetHTMLResponse (uri string) (io.ReadCloser, error) {
 	if e != nil {
 		return req.Body, e
 	}
-	defer req.Body.Close()
 
 	return req.Body, nil
 }

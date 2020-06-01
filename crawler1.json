@@ -1,0 +1,21 @@
+{
+  "encoding": "utf-8",
+  "selectors": [
+    {
+      "identifier": "BookName",
+      "selector": "h4.bookname",
+      "repeated": true,
+      "property": "html",
+      "type": "string",
+      "target": "alt"
+    },
+    {
+      "identifier": "BookPhoto",
+      "selector": ".bookbor.lazyload",
+      "repeated": true,
+      "property": "attr",
+      "type": "string",
+      "target": "data-src"
+    }
+  ]
+}

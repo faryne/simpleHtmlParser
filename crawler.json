@@ -2,11 +2,18 @@
   "encoding": "utf-8",
   "selectors": [
     {
-      "identifier": "aaa",
-      "selector": "img",
+      "identifier": "Name",
+      "selector": "td.t1 > h1",
+      "repeated": false,
+      "property": "html",
+      "type": "string"
+    },
+    {
+      "identifier": "Photo",
+      "selector": "tr.area-av30.top > td:nth-child(1) > img",
       "repeated": false,
       "property": "attr",
-      "target": "alt",
+      "target": "src",
       "type": "string"
     }
   ]

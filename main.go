@@ -2,9 +2,8 @@ package main
 
 import (
 	"./services"
+	"encoding/json"
 	"flag"
-	"golang.org/x/net/html/charset"
-
 	"fmt"
 	"os"
 )
@@ -19,11 +18,6 @@ func main () {
 	flag.StringVar(&uri, "uri", "", "要爬取的網址")
 	flag.StringVar(&file, "file", "", "爬取的設定檔")
 	flag.Parse()
-
-	enc, label := charset.Lookup("utf-8")
-	fmt.Println(enc)
-	fmt.Println(label)
-	//return
 
 	// 檢查參數
 	if len(uri) <= 0 {
@@ -45,6 +39,8 @@ func main () {
 		services.GenerateError(004, errHTML.Error())
 		return
 	}
+	// 不要在 function 內下 defer close
+	defer reader.Close()
 
 	// 解析 json 檔內容
 	req, errReq := services.InitRequest(file)
@@ -54,7 +50,13 @@ func main () {
 	}
 
 	// 開始進入解析步驟
-	query := services.Parse(reader, req)
-	//fmt.Printf("%+v", resp)
-	fmt.Println(query)
+	query := services.ParsePage(reader, req)
+
+	// 將爬蟲結果輸出為 json
+	content, errJson := json.Marshal(query)
+	if errJson != nil {
+		services.GenerateError(006, errJson.Error())
+		return
+	}
+	fmt.Println(string(content))
 }

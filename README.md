@@ -29,3 +29,15 @@ Output 欄位名稱 | Output 欄位說明
 ---- | ----
 property | enum，必須是 html / text / attr 中之一
 target | string，當 property 為 attr 時使用。代表要爬指定的元素的屬性
+
+### 使用範例
+
+#### 爬 BookWalker 輕小說列表頁
+```shell script
+go run main.go -uri "https://www.bookwalker.com.tw/more/fiction/1/3" -file ./samples/crawler2.json
+```
+
+#### 爬 DMM 女優頁
+```shell script
+go run main.go -uri "http://actress.dmm.co.jp/-/detail/=/actress_id=17/" -file ./samples/crawler.json  
+```

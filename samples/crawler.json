@@ -20,6 +20,31 @@
         "target": "attr"
       },
       "type": "string"
+    },
+    {
+      "identifier": "Properties",
+      "selector": "tr.area-av30.top > td:nth-child(2) > table > tbody > tr",
+      "repeated": true,
+      "children": [
+        {
+          "identifier": "Header",
+          "selector": "td:nth-child(1)",
+          "repeated": true,
+          "output": {
+            "target": "html"
+          },
+          "type": "string"
+        },
+        {
+          "identifier": "Value",
+          "selector": "td:nth-child(2)",
+          "repeated": true,
+          "output": {
+            "target": "html"
+          },
+          "type": "string"
+        }
+      ]
     }
   ]
 }

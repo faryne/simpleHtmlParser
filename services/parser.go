@@ -29,8 +29,7 @@ func ParsePage (query *goquery.Document, req *JsonRequest) map[string]interface{
 	var output = make(map[string]interface{})
 
 	for _, e := range req.Selectors {
-		elements := getElements(query, e)
-		output[e.Identifer] = elements
+		output[e.Identifer] = getElementContent(query.Find(e.Selector), e)
 	}
 	return output
 }
@@ -63,23 +62,11 @@ func convData (data string, dataType string) interface{} {
 	}
 	return nil
 }
-func getElements (query *goquery.Document, req Selector) interface{} {
-	// 取出元素內容
-	var output []interface{}
-	query.Find(req.Selector).Each(func (idx int, selection *goquery.Selection) {
-		if len(req.Children) > 0 {
-			output = append(output, getChildrenElements(selection, req.Children))
-		} else {
-			output = append(output, clearData(selection, req))
-		}
-	})
 
-	return output
-}
 func getChildrenElements (query *goquery.Selection, req []Selector) map[string]interface{} {
 	var output = make(map[string]interface{})
 	for _, r := range req {
-		query.Find(r.Selector).Each(func(i int, selector *goquery.Selection){
+		query.Find(r.Selector).Each(func(i int, selector *goquery.Selection) {
 			if len(r.Children) > 0 {
 				output[r.Identifer] = getChildrenElements(selector, r.Children)
 			} else {
@@ -90,48 +77,23 @@ func getChildrenElements (query *goquery.Selection, req []Selector) map[string]i
 
 	return output
 }
-//func parseSingle (data []string, req Selector) interface{} {
-//	if data[0] == "" || len(data) <= 0 {
-//		return ""
-//	}
-//	switch req.Type {
-//	case "string":
-//		return data[0]
-//	case "integer":
-//		output, err := strconv.Atoi(data[0])
-//		if err == nil {
-//			return output
-//		}
-//		return -1
-//	case "boolean":
-//		output, err := strconv.ParseBool(data[0])
-//		if err == nil {
-//			return output
-//		}
-//		return false
-//	}
-//	return ""
-//}
-//
-//func parseMultiple (data []string, req Selector) []interface{} {
-//	if len(data) <= 0 {
-//		return []interface{}{}
-//	}
-//	var output = make([]interface{}, len(data))
-//	for i, d := range data {
-//		switch req.Type {
-//		case "string":
-//			output[i] = d
-//			break
-//		case "integer":
-//			c, _ := strconv.Atoi(d)
-//			output[i] = c
-//			break
-//		case "boolean":
-//			c, _ := strconv.ParseBool(d)
-//			output[i] = c
-//			break
-//		}
-//	}
-//	return output
-//}
+
+func getElementContent (selector *goquery.Selection, req Selector) interface{} {
+	// 如果是單一元素時
+	if req.Repeated == false {
+		if len(req.Children) > 0 {
+			return getChildrenElements(selector, req.Children)
+		}
+		return clearData(selector, req)
+	}
+	var output []interface{}
+	selector.Each(func (idx int, selection *goquery.Selection) {
+		if len(req.Children) > 0 {
+			output = append(output, getChildrenElements(selection, req.Children))
+		} else {
+			output = append(output, clearData(selection, req))
+		}
+	})
+
+	return output
+}

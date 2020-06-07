@@ -47,7 +47,7 @@ func clearData (selection *goquery.Selection, req Selector) interface{} {
 		}
 		html, _ = selection.Attr(req.Output.Property)
 	}
-	return convData(html, req.Type)
+	return convData(html, req.Output.Type)
 }
 func convData (data string, dataType string) interface{} {
 	switch dataType {

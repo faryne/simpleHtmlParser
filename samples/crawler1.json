@@ -7,9 +7,9 @@
       "repeated": true,
       "output": {
         "property": "",
-        "target": "html"
-      },
-      "type": "string"
+        "target": "html",
+        "type": "string"
+      }
     },
     {
       "identifier": "BookPhoto",
@@ -17,9 +17,9 @@
       "repeated": true,
       "output": {
         "property": "data-src",
-        "target": "attr"
-      },
-      "type": "string"
+        "target": "attr",
+        "type": "string"
+      }
     }
   ]
 }

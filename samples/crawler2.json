@@ -10,28 +10,28 @@
           "identifier": "Name",
           "selector": "h4.bookname",
           "repeated": false,
-          "type": "string",
           "output": {
-            "target": "html"
+            "target": "html",
+            "type": "string"
           }
         },
         {
           "identifier": "Cover",
           "selector": ".bwbookcover > img",
           "repeated": false,
-          "type": "string",
           "output": {
             "property": "data-src",
-            "target": "attr"
+            "target": "attr",
+            "type": "string"
           }
         },
         {
           "identifier": "Author",
           "selector": "h5.booknamesub",
           "repeated": false,
-          "type": "string",
           "output": {
-            "target": "html"
+            "target": "html",
+            "type": "string"
           }
         }
       ]

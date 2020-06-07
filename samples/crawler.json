@@ -7,9 +7,9 @@
       "repeated": false,
       "output": {
         "property": "",
-        "target": "html"
-      },
-      "type": "string"
+        "target": "html",
+        "type": "string"
+      }
     },
     {
       "identifier": "Photo",
@@ -17,9 +17,9 @@
       "repeated": false,
       "output": {
         "property": "src",
-        "target": "attr"
-      },
-      "type": "string"
+        "target": "attr",
+        "type": "string"
+      }
     },
     {
       "identifier": "Properties",
@@ -31,18 +31,18 @@
           "selector": "td:nth-child(1)",
           "repeated": true,
           "output": {
-            "target": "html"
-          },
-          "type": "string"
+            "target": "html",
+            "type": "string"
+          }
         },
         {
           "identifier": "Value",
           "selector": "td:nth-child(2)",
           "repeated": true,
           "output": {
-            "target": "html"
-          },
-          "type": "string"
+            "target": "html",
+            "type": "string"
+          }
         }
       ]
     }

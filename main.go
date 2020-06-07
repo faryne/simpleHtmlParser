@@ -2,10 +2,10 @@ package main
 
 import (
 	"./services"
-	"encoding/json"
 	"flag"
 	"fmt"
 	"os"
+	"time"
 )
 
 var (
@@ -13,31 +13,43 @@ var (
 	file string
 )
 
+type a struct {
+	Msg string
+	Code int
+}
+
 func main () {
 	// 解析參數
 	flag.StringVar(&uri, "uri", "", "要爬取的網址")
 	flag.StringVar(&file, "file", "", "爬取的設定檔")
 	flag.Parse()
 
+	// 最頂層負責錯誤輸出的地方
+	defer func () {
+		if e := recover(); e != nil {
+			if e.(services.CrawlerError).ErrorMessage == "" {
+				services.SetError(000, fmt.Sprintf("%+v", e))
+			}
+			services.GenerateErrorOutput(e.(services.CrawlerError))
+		}
+	}()
+
+	startTime := time.Now()
 	// 檢查參數
 	if len(uri) <= 0 {
-		services.GenerateError(001, "uri should not be empty")
-		return
+		services.SetError(001, "uri should not be empty")
 	}
 	if len(file) <= 0 {
-		services.GenerateError(002, "file path should not be empty")
-		return
+		services.SetError(002, "file path should not be empty")
 	}
 	if _, errFile := os.Stat(file); os.IsNotExist(errFile) {
-		services.GenerateError(003, "file path is not valid")
-		return
+		services.SetError(003, "file path is not valid")
 	}
 
 	// 讀取 html
 	reader, errHTML := services.GetHTMLResponse(uri)
 	if errHTML != nil {
-		services.GenerateError(004, errHTML.Error())
-		return
+		services.SetError(004, errHTML.Error())
 	}
 	// 不要在 function 內下 defer close
 	defer reader.Close()
@@ -45,23 +57,17 @@ func main () {
 	// 解析 json 檔內容
 	req, errReq := services.InitRequest(file)
 	if errReq != nil {
-		services.GenerateError(005, errReq.Error())
-		return
+		services.SetError(005, errReq.Error())
 	}
 
 	// 開始進入解析步驟
 	convReader, errReader := services.InitGoquery(reader)
 	if errReader != nil {
-		services.GenerateError(006, errReader.Error())
-		return
+		services.SetError(006, errReader.Error())
 	}
-	query := services.ParsePage(convReader, req)
+	output := services.ParsePage(convReader, req)
+	endTime := time.Now()
 
 	// 將爬蟲結果輸出為 json
-	content, errJson := json.Marshal(query)
-	if errJson != nil {
-		services.GenerateError(007, errJson.Error())
-		return
-	}
-	fmt.Println(string(content))
+	services.GenerateOutput(output, endTime.Sub(startTime).Seconds())
 }

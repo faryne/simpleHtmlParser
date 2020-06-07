@@ -41,3 +41,11 @@ go run main.go -uri "https://www.bookwalker.com.tw/more/fiction/1/3" -file ./sam
 ```shell script
 go run main.go -uri "http://actress.dmm.co.jp/-/detail/=/actress_id=17/" -file ./samples/crawler.json  
 ```
+
+#### 爬 Getchu 排名頁
+```shell script
+go run main.go -uri "http://www.getchu.com/rank/?genre=pc_soft" -file ./samples/crawler3.json
+```
+
+### @TODO
+* 加上爬取網頁時可用的選項，例如 User-Agent 等 header 變更

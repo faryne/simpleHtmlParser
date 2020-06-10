@@ -47,5 +47,10 @@ go run main.go -uri "http://actress.dmm.co.jp/-/detail/=/actress_id=17/" -file .
 go run main.go -uri "http://www.getchu.com/rank/?genre=pc_soft" -file ./samples/crawler3.json
 ```
 
+#### 爬證交所上市公司列表
+```shell script
+go run main.go -uri "https://isin.twse.com.tw/isin/C_public.jsp?strMode=2" -file ./samples/test1.json
+```
+
 ### @TODO
 * 加上爬取網頁時可用的選項，例如 User-Agent 等 header 變更

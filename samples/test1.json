@@ -1,0 +1,52 @@
+{
+  "encoding": "big5",
+  "selectors": [
+    {
+      "identifier": "Root",
+      "selector": "TABLE.h4 > tbody > tr",
+      "repeated": true,
+      "children": [
+        {
+          "selector": "td:nth-child(1)",
+          "identifier": "Code_Name",
+          "output": {
+            "target": "html",
+            "type": "string"
+          }
+        },
+        {
+          "selector": "td:nth-child(2)",
+          "identifier": "ISIN_CODE",
+          "output": {
+            "target": "html",
+            "type": "string"
+          }
+        },
+        {
+          "selector": "td:nth-child(3)",
+          "identifier": "Day",
+          "output": {
+            "target": "html",
+            "type": "string"
+          }
+        },
+        {
+          "selector": "td:nth-child(4)",
+          "identifier": "Market_Type",
+          "output": {
+            "target": "html",
+            "type": "string"
+          }
+        },
+        {
+          "selector": "td:nth-child(5)",
+          "identifier": "Industry_Type",
+          "output": {
+            "target": "html",
+            "type": "string"
+          }
+        }
+      ]
+    }
+  ]
+}

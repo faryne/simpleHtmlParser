@@ -11,8 +11,8 @@ import (
 )
 
 
-func InitGoquery (reader io.Reader) (*goquery.Document, error) {
-	utfReader, err0 := charset.NewReader(reader, "text/html")
+func InitGoquery (reader io.Reader, enc string) (*goquery.Document, error) {
+	utfReader, err0 := charset.NewReaderLabel(enc, reader)
 	if err0 != nil {
 		return nil, err0
 	}

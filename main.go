@@ -61,7 +61,10 @@ func main () {
 	}
 
 	// 開始進入解析步驟
-	convReader, errReader := services.InitGoquery(reader)
+	if req.Encoding == "" {
+		services.SetError(006, "encoding must not be empty")
+	}
+	convReader, errReader := services.InitGoquery(reader, req.Encoding)
 	if errReader != nil {
 		services.SetError(006, errReader.Error())
 	}

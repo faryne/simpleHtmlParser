@@ -1,0 +1,32 @@
+{
+  "encoding": "utf-8",
+  "selectors": [
+    {
+      "identifier": "Games",
+      "selector": "div.rankw_row.rankw_item_row > div.rankw_cell > div.rankw_row",
+      "repeated": true,
+      "children": [
+        {
+          "identifier": "Photo",
+          "selector": ".item_image > div > a > img",
+          "repeated": false,
+          "output": {
+            "property": "data-src",
+            "target": "attr",
+            "type": "string"
+          }
+        },
+        {
+          "identifier": "Title",
+          "selector": ".item_name > b > a",
+          "repeated": false,
+          "output": {
+            "property": "",
+            "target": "text",
+            "type": "string"
+          }
+        }
+      ]
+    }
+  ]
+}

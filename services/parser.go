@@ -5,11 +5,15 @@ import (
 	"github.com/PuerkitoBio/goquery"
 	"golang.org/x/net/html/charset"
 	"io"
+	"regexp"
 	"strconv"
 
 	//"github.com/PuerkitoBio/goquery"
 )
 
+var (
+	collRegexp 	map[string]string
+)
 
 func InitGoquery (reader io.Reader, enc string) (*goquery.Document, error) {
 	utfReader, err0 := charset.NewReaderLabel(enc, reader)
@@ -28,13 +32,15 @@ func InitGoquery (reader io.Reader, enc string) (*goquery.Document, error) {
 func ParsePage (query *goquery.Document, req *JsonRequest) map[string]interface{} {
 	var output = make(map[string]interface{})
 
+	collRegexp = req.Regexp
+
 	for _, e := range req.Selectors {
 		output[e.Identifer] = getElementContent(query.Find(e.Selector), e)
 	}
 	return output
 }
 
-func clearData (selection *goquery.Selection, req Selector) interface{} {
+func clearData (selection *goquery.Selection, req Selector) map[string]interface{} {
 	var html string
 	switch req.Output.Target {
 	case "html":
@@ -47,7 +53,12 @@ func clearData (selection *goquery.Selection, req Selector) interface{} {
 		}
 		html, _ = selection.Attr(req.Output.Property)
 	}
-	return convData(html, req.Output.Type)
+
+	var output = make(map[string]interface{})
+	output["raw"] = html
+	output["converted"] = convData(html, req.Output.Type)
+	output["regexp"] = regexpConverted(html, collRegexp[req.Output.Regexp])
+	return output
 }
 func convData (data string, dataType string) interface{} {
 	switch dataType {
@@ -61,6 +72,20 @@ func convData (data string, dataType string) interface{} {
 		return b
 	}
 	return nil
+}
+func regexpConverted (data string, pattern string) interface{} {
+	if pattern == "" {
+		return false
+	}
+	re, e := regexp.Compile(`` + pattern + ``)
+	if e != nil {
+		panic("RegExp Pattern Error: " + e.Error())
+	}
+	if !re.MatchString(data) {
+		return nil
+	}
+
+	return re.FindStringSubmatch(data)
 }
 
 func getChildrenElements (query *goquery.Selection, req []Selector) map[string]interface{} {

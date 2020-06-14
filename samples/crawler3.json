@@ -1,5 +1,8 @@
 {
-  "encoding": "utf-8",
+  "encoding": "euc-jp",
+  "regexp": {
+    "replace-space": "^\\n(\\s+)([0-9]+)\\n(\\s+)([\\p{L}\\d_\\W]+)"
+  },
   "selectors": [
     {
       "identifier": "Games",
@@ -23,7 +26,8 @@
           "output": {
             "property": "",
             "target": "text",
-            "type": "string"
+            "type": "string",
+            "regexp": "replace-space"
           }
         }
       ]

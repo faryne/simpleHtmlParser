@@ -7,7 +7,8 @@ import (
 
 type JsonRequest struct {
 	Encoding 		string 				`json:"encoding"`
-	Selectors 		[]Selector 			`json:"selectors"`
+	Regexp 			map[string]string	`json:"regexp"`
+	Selectors 		[]Selector			`json:"selectors"`
 }
 type Selector struct {
 	Identifer 		string				`json:"identifier"`
@@ -20,6 +21,10 @@ type Element struct {
 	Property 		string 				`json:"property"`
 	Target 			string 				`json:"target"`
 	Type 			string 				`json:"type"`
+	Regexp 			string 				`json:"regexp"`
+}
+type RegExp struct {
+	Pattern 		string 				`json:"pattern"`
 }
 
 func getJsonContent (filename string) ([]byte, error){
@@ -48,7 +53,10 @@ func InitRequest (filename string) (*JsonRequest, error) {
 		return req, err
 	}
 
-	json.Unmarshal(content, req)
+	e := json.Unmarshal(content, req)
+	if e != nil {
+		panic("Cannot unmarshall json file: " + e.Error())
+	}
 
 	return req, nil
 }

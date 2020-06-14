@@ -1,5 +1,8 @@
 {
   "encoding": "euc-jp",
+  "regexp": {
+    "3size": "^(T(?P<Height>[0-9]+)cm\\s)?(B(?P<Bust>[0-9]+)cm)?(\\((?P<Cup>[A-Z]{1,})カップ\\))?(\\sW(?P<Waist>[0-9]+)cm)?(\\sH(?P<Hips>[0-9]+)cm)?$"
+  },
   "selectors": [
     {
       "identifier": "Name",
@@ -41,7 +44,8 @@
           "repeated": true,
           "output": {
             "target": "html",
-            "type": "string"
+            "type": "string",
+            "regexp": "3size"
           }
         }
       ]

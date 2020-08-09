@@ -1,0 +1,58 @@
+{
+  "encoding": "utf-8",
+  "regexp": {
+    "ymd": "^([0-9]{4})([0-9]{2})([0-9]{2})"
+  },
+  "selectors": [
+    {
+      "identifier": "識別標章編號",
+      "selector": "0",
+      "repeated": true,
+      "output": {
+        "type": "string"
+      }
+    },
+    {
+      "identifier": "提供機關名稱",
+      "selector": "1",
+      "repeated": true,
+      "output": {
+        "type": "string"
+      }
+    },
+    {
+      "identifier": "特店對外名稱",
+      "selector": "2",
+      "repeated": true,
+      "output": {
+        "type": "string"
+      }
+    },
+    {
+      "identifier": "特店網址",
+      "selector": "3",
+      "repeated": true,
+      "output": {
+        "type": "string"
+      }
+    },
+    {
+      "identifier": "啟用日期",
+      "selector": "4",
+      "repeated": true,
+      "output": {
+        "type": "integer",
+        "regexp": "ymd"
+      }
+    },
+    {
+      "identifier": "終止日期",
+      "selector": "5",
+      "repeated": true,
+      "output": {
+        "type": "integer",
+        "regexp": "ymd"
+      }
+    }
+  ]
+}

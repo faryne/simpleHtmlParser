@@ -15,6 +15,11 @@ type CrawlerOutput struct {
 	SpentTime 		float64						`json:"spent_time"`
 	Data 			interface{}					`json:"data"`
 }
+type ElementOutput struct {
+	Converted 		interface{}					`json:"converted"`
+	Raw 			interface{}					`json:"raw"`
+	RegExp 			interface{}					`json:"regexp"`
+}
 func SetError (code int, message string) {
 	content := CrawlerError{
 		ErrorCode:    code,

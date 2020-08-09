@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	collRegexp 	map[string]string
+	CollRegexp 	map[string]string
 )
 
 func InitGoquery (reader io.Reader, enc string) (*goquery.Document, error) {
@@ -32,15 +32,13 @@ func InitGoquery (reader io.Reader, enc string) (*goquery.Document, error) {
 func ParsePage (query *goquery.Document, req *JsonRequest) map[string]interface{} {
 	var output = make(map[string]interface{})
 
-	collRegexp = req.Regexp
-
 	for _, e := range req.Selectors {
 		output[e.Identifer] = getElementContent(query.Find(e.Selector), e)
 	}
 	return output
 }
 
-func clearData (selection *goquery.Selection, req Selector) map[string]interface{} {
+func clearData (selection *goquery.Selection, req Selector) *ElementOutput {
 	var html string
 	switch req.Output.Target {
 	case "html":
@@ -54,10 +52,11 @@ func clearData (selection *goquery.Selection, req Selector) map[string]interface
 		html, _ = selection.Attr(req.Output.Property)
 	}
 
-	var output = make(map[string]interface{})
-	output["raw"] = html
-	output["converted"] = convData(html, req.Output.Type)
-	output["regexp"] = regexpConverted(html, collRegexp[req.Output.Regexp])
+	output := &ElementOutput{
+		Converted: 	convData(html, req.Output.Type),
+		Raw:       	html,
+		RegExp:    	regexpConverted(html, CollRegexp[req.Output.Regexp]),
+	}
 	return output
 }
 func convData (data string, dataType string) interface{} {

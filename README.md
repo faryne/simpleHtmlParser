@@ -7,7 +7,7 @@ go build -o simpleHTMLParser main.go
 
 ### 使用方法
 ```shell script
-./simpleHTMLParser -uri https://www.example.com -file ./crwaler.json
+./simpleHTMLParser -uri https://www.example.com -file ./crwaler.json [-parse_type html|csv]
 ```
 
 ### JSON 設定檔結構
@@ -52,5 +52,9 @@ go run main.go -uri "http://www.getchu.com/rank/?genre=pc_soft" -file ./samples/
 go run main.go -uri "https://isin.twse.com.tw/isin/C_public.jsp?strMode=2" -file ./samples/test1.json
 ```
 
+#### 爬取 csv 內容（教育部-振興三倍券通訊交易適用業者名單）
+```shell script
+go run main.go  -parse_type csv -uri "https://transform.cloud.sa.gov.tw/DataSets/DataSetResource.ashx?rId=A09010000E-000195-001" -file ./samples/csvtest1.json  
+```
 ### @TODO
 * 加上爬取網頁時可用的選項，例如 User-Agent 等 header 變更
